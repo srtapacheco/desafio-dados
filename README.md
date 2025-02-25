@@ -135,7 +135,7 @@ Após a execução, os dados tratados estarão disponíveis na tabela `public.ma
 Para fins de teste e validação, os arquivos de exportação do banco (antes e depois da limpeza) estão disponíveis na pasta sql/.
 
 ## 📊 **Validação dos Dados**
-Após a transformação, realizamos comparações entre os dados brutos e tratados para validar o pipeline. Algumas verificações incluem:
+Após a transformação, realizei comparações entre os dados brutos e tratados para validar o pipeline. Algumas verificações incluem:
 - **Comparação entre os valores antes e depois da transformação**.
 - **Contagem de registros antes e depois para evitar perda de dados inesperada**.
 - **Análise de estatísticas descritivas para garantir a consistência dos dados corrigidos**.
