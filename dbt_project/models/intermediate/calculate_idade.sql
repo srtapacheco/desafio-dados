@@ -20,7 +20,7 @@ idade_calculada AS (
         data_atualizacao_cadastro,
         obito,
 
-        -- Calcular idade correta considerando aniversário
+        -- Calcular idade correta considerando data de nascimento
         EXTRACT(YEAR FROM updated_at) - EXTRACT(YEAR FROM data_nascimento) - 
             CASE 
                 WHEN EXTRACT(MONTH FROM updated_at) < EXTRACT(MONTH FROM data_nascimento) 
