@@ -1,4 +1,4 @@
-{{ config(materialized='table') }}
+{{ config(materialized='table') }} 
 
 WITH base AS (
     SELECT 
@@ -14,57 +14,51 @@ tratamento_anomalias AS (
     SELECT 
         id,
 
-        -- Verificação de anomalias na altura fora do intervalo possivel
+        -- Verificação de anomalias na altura
         CASE 
-            WHEN altura < 50 OR altura > 250 THEN TRUE
+            WHEN altura <= 50 OR altura >= 250 OR altura = 0 THEN TRUE
             ELSE FALSE
         END AS flag_altura_anomala,
 
-        -- Substitui alturas impossíveis por NULL
+        -- Corrigir altura impossível para NULL
         CASE 
-            WHEN altura < 50 OR altura > 250 THEN NULL
+            WHEN altura <= 50 OR altura >= 250 OR altura = 0 THEN NULL
             ELSE altura
         END AS altura_corrigida,
 
-        -- Verificação de anomalias na peso fora do intervalo possivel
+        -- Verificação de anomalias no peso
         CASE 
-            WHEN peso < 2 OR peso > 500 THEN TRUE
+            WHEN peso <= 3 OR peso >= 250 OR peso = 0 THEN TRUE
             ELSE FALSE
         END AS flag_peso_anomalo,
 
-        -- Substituir pesos impossíveis por NULL
+        -- Corrigir peso impossível para NULL
         CASE 
-            WHEN peso < 2 OR peso > 500 THEN NULL
+            WHEN peso <= 3 OR peso >= 250 OR peso = 0 THEN NULL
             ELSE peso
         END AS peso_corrigido,
 
-        -- Verificação de anomalias na pressao fora do intervalo possivel
+        -- Verificação de anomalias na pressão arterial
         CASE 
-            WHEN pressao_sistolica < 60 OR pressao_sistolica > 300 
-                 OR pressao_diastolica < 30 OR pressao_diastolica > 200 
+            WHEN pressao_sistolica >= 280 OR pressao_diastolica >= 160 
+                 OR pressao_sistolica = 0 OR pressao_diastolica = 0 
                  OR pressao_sistolica <= pressao_diastolica 
             THEN TRUE
             ELSE FALSE
         END AS flag_pressao_anomala,
 
-        -- Substitui pressões impossíveis por NULL
+        -- Corrigir pressão arterial impossível para NULL
         CASE 
-            WHEN pressao_sistolica < 60 OR pressao_sistolica > 300 
-                 OR pressao_diastolica < 30 OR pressao_diastolica > 200 
-                 OR pressao_sistolica <= pressao_diastolica 
-            THEN NULL
+            WHEN pressao_sistolica >= 280 OR pressao_sistolica = 0 THEN NULL
             ELSE pressao_sistolica
         END AS pressao_sistolica_corrigida,
 
         CASE 
-            WHEN pressao_sistolica < 60 OR pressao_sistolica > 300 
-                 OR pressao_diastolica < 30 OR pressao_diastolica > 200 
-                 OR pressao_sistolica <= pressao_diastolica 
-            THEN NULL
+            WHEN pressao_diastolica >= 160 OR pressao_diastolica = 0 THEN NULL
             ELSE pressao_diastolica
         END AS pressao_diastolica_corrigida
 
     FROM base
 )
 
-SELECT * FROM tratamento_anomalia
+SELECT * FROM tratamento_anomalias
