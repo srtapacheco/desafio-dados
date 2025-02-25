@@ -4,7 +4,7 @@
 Este repositório contém a solução do **Desafio de Cientista de Dados**, que consiste na **análise, estruturação e transformação de dados brutos** fornecidos no arquivo `dados_ficha_a_desafio.csv`. O objetivo foi identificar problemas nos dados, propor soluções e realizar o tratamento dos mesmos utilizando **Python, SQL e DBT**.
 
 
-## 📊 **Objetivos**
+## 🎯 **Objetivos**
 1. **Exploração e Análise dos Dados**:
    - Identificar características e padrões dos dados.
    - Apontar possíveis inconsistências e problemas.
