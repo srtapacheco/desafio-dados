@@ -1,4 +1,4 @@
-{{ config(materialized='table') }}
+{{ config(materialized='table') }} 
 
 WITH base AS (
     SELECT 
@@ -14,7 +14,7 @@ tratamento_anomalias AS (
     SELECT 
         id,
 
-        -- Verificação de anomalias na altura fora do intervalo possivel
+        -- Verificação de anomalias na altura fora do intervalo possível
         CASE 
             WHEN altura < 50 OR altura > 250 THEN TRUE
             ELSE FALSE
@@ -26,7 +26,7 @@ tratamento_anomalias AS (
             ELSE altura
         END AS altura_corrigida,
 
-        -- Verificação de anomalias na peso fora do intervalo possivel
+        -- Verificação de anomalias no peso fora do intervalo possível
         CASE 
             WHEN peso < 2 OR peso > 500 THEN TRUE
             ELSE FALSE
@@ -38,7 +38,7 @@ tratamento_anomalias AS (
             ELSE peso
         END AS peso_corrigido,
 
-        -- Verificação de anomalias na pressao fora do intervalo possivel
+        -- Verificação de anomalias na pressão fora do intervalo possível
         CASE 
             WHEN pressao_sistolica < 60 OR pressao_sistolica > 300 
                  OR pressao_diastolica < 30 OR pressao_diastolica > 200 
@@ -67,4 +67,4 @@ tratamento_anomalias AS (
     FROM base
 )
 
-SELECT * FROM tratamento_anomalia
+SELECT * FROM tratamento_anomalias
