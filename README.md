@@ -42,42 +42,35 @@ desafio-dados/
 │   ├── dbt_project.yml                  # Configuração do DBT
 │
 ├── notebooks/                          # Notebooks para análise exploratória
-│   ├── analise_exploratoria.ipynb      # Notebook com exploração, analise e relatórios de desenvolvimento
-│
-├── scripts/                            # Scripts auxiliares para tratamento de dados
+│   ├── analysis.ipynb      # Notebook com exploração, analise e relatórios de desenvolvimento versao notebook jupter
+│   ├── analysis.py      # Notebook com exploração mas na versao em python
+│   ├── export_data.py      # Arquivo usado para importacao de dados no Postgres
 │
 ├── sql/                                # Scripts SQL antes e depois da transformação
-│   ├── dados_brutos.sql                # Dump do banco antes da limpeza
-│   ├── dados_tratados.sql              # Dump do banco após a limpeza e transformação
+│   ├── raw_data.sql                # Dump do banco antes da limpeza
+│   ├── processed_data.sql              # Dump do banco após a limpeza e transformação
 │
-├── README.md                           
-├── requirements.txt                     # Dependências do projeto
+├── README.md      
+├── relatorio_desenvolvimento.pdf   # Relatorio versao pdf com analise e desenvolvimento do desafio
 ├── .gitignore                           
 ```
 
 ---
 
 ## 🔎 Análise dos Dados
-A análise exploratória foi realizada utilizando Python e está documentada no notebook analise_exploratoria.ipynb. Caso queira visualizar o notebook, ele está disponível no repositório, e também é possível acessar o arquivo em formato PDF para consultar o relatório de desenvolvimento deste projeto. Durante a análise, foram identificados diversos problemas nos dados, como:
-
-✅ **Valores inconsistentes em campos booleanos** (`0`, `1`, `True`, `False`)  
-✅ **Erros na padronização de datas** (`YYYY-MM-DD` vs `YYYY-MM-DD HH:MM:SS` vs `YYYY-MM-DD HH:MM:SS.SSS`)
-✅ **Dados categóricos com múltiplas grafias** (ex.: `Motorista de Táxi` vs `Motorista de Carro de Passeio`)  
-✅ **Presença de valores numéricos extremos e possivelmente errados** (ex.: `peso = 9.49 kg para um adulto`)  
-
-A partir dessa análise, foram propostas estratégias para limpeza e padronização dos dados.
+A análise exploratória foi realizada utilizando Python e está documentada no notebook analise_exploratoria.ipynb. Caso queira visualizar o notebook, ele está disponível no repositório dentro da pasta \notebooks, e também é possível visualizar o arquivo em formato PDF (na raiz do diretorio). 
 
 ---
 
 ## 🔄 Transformação com DBT
 A transformação dos dados foi feita utilizando **SQL e DBT**, garantindo um modelo padronizado e pronto para futuras análises. As principais mudanças incluem:
 
-🔹 Conversão de valores booleanos para **0 e 1**  
-🔹 Padronização dos campos de data para formato único  
-🔹 Normalização de categorias de ocupação para evitar duplicidades  
-🔹 Ajuste de valores inconsistentes em variáveis numéricas  
+🔹 Conversão de tipagem de variáveis  
+🔹 Padronização dos campos 
+🔹 Normalização de categorias
+🔹 Ajuste de valores inconsistentes  
 
-O código SQL do modelo tratado pode ser encontrado em [`dbt_project/models].
+O código SQL do modelo tratado pode ser encontrado dentro da pasta do projeto dbt [`dbt_project/models].
 
 ---
 
@@ -95,10 +88,7 @@ O código SQL do modelo tratado pode ser encontrado em [`dbt_project/models].
    https://github.com/srtapacheco/desafio-dados
    cd desafio-dados
    ```
-2. Instale as dependências:
-   ```bash
-   pip install -r requirements.txt
-   ```
+2. Instale as dependências necessárias
 3. Configurar Banco de Dados
 No arquivo `profiles.yml`, configure as credenciais do banco de dados:
 
@@ -132,7 +122,7 @@ dbt run --full-refresh
 
 Após a execução, os dados tratados estarão disponíveis na tabela `public.mart_dados_finais`. 
 
-Para fins de teste e validação, os arquivos de exportação do banco (antes e depois da limpeza) estão disponíveis na pasta sql/.
+Para fins de teste e validação, os arquivos de exportação do banco (antes e depois da limpeza) estão disponíveis na pasta \sql.
 
 ## 📊 **Validação dos Dados**
 Após a transformação, realizei comparações entre os dados brutos e tratados para validar o pipeline. Algumas verificações incluem:
